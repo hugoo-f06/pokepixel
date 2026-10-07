@@ -14,6 +14,14 @@
 				que adivinar cuál es. ¡Diviértete y desafía tus conocimientos
 				sobre Pokémon!
 			</p>
+			<img id="pokemon-image" alt="" width="256" height="256" hidden />
+			<canvas id="pokemon-canvas" width="4" height="4" hidden></canvas>
+			<p id="attempts"></p>
+			<form id="guess-form">
+				<label for="guess-input">Nombre del Pokémon</label>
+				<input id="guess-input" name="guess" type="text" required />
+				<button type="submit">Enviar intento</button>
+			</form>
 			<p id="status">Esperando a JavaScript…</p>
 		</main>
 		<script type="module" src="/src/main.js"></script>
