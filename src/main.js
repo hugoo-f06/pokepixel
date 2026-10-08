@@ -68,13 +68,13 @@ function handleGuess(event) {
 	attemptsUsed += 1;
 	updateAttempts();
 
-	if (guess === currentPokemon.name) {
-		finishGame(`¡Has acertado! Era ${currentPokemon.name}.`);
+	if (guess === currentPokemon.species.name) {
+		finishGame(`¡Has acertado! Era ${currentPokemon.species.name}.`);
 		return;
 	}
 
 	if (attemptsUsed === maxAttempts) {
-		finishGame(`Sin intentos. Era ${currentPokemon.name}.`);
+		finishGame(`Sin intentos. Era ${currentPokemon.species.name}.`);
 		return;
 	}
 
@@ -96,7 +96,7 @@ async function loadPokemon() {
 
 	try {
 		const listResponse = await fetch(
-			"https://pokeapi.co/api/v2/pokemon?limit=100000",
+			"https://pokeapi.co/api/v2/pokemon-species?limit=100000",
 		);
 
 		if (!listResponse.ok) {
@@ -108,7 +108,24 @@ async function loadPokemon() {
 		const listData = await listResponse.json();
 		pokemonNames = listData.results.map((pokemon) => pokemon.name);
 
-		const response = await fetch("https://pokeapi.co/api/v2/pokemon/1");
+		const randomIndex = Math.floor(Math.random() * listData.results.length);
+		const selectedSpecies = listData.results[randomIndex];
+
+		const speciesResponse = await fetch(selectedSpecies.url);
+
+		if (!speciesResponse.ok) {
+			throw new Error(
+				`PokéAPI respondió con el estado ${speciesResponse.status}`,
+			);
+		}
+
+		const speciesData = await speciesResponse.json();
+
+		const defaultVariety = speciesData.varieties.find(
+			(variety) => variety.is_default,
+		);
+
+		const response = await fetch(defaultVariety.pokemon.url);
 
 		if (!response.ok) {
 			throw new Error(
@@ -120,7 +137,7 @@ async function loadPokemon() {
 
 		pokemonImage.src =
 			pokemon.sprites.other["official-artwork"].front_default;
-		pokemonImage.alt = `Imagen de ${pokemon.name}`;
+		pokemonImage.alt = `Imagen de ${pokemon.species.name}`;
 
 		await pokemonImage.decode();
 
@@ -129,6 +146,7 @@ async function loadPokemon() {
 		pokemonCanvas.hidden = false;
 
 		currentPokemon = pokemon;
+		console.log("Especie elegida:", currentPokemon.species.name);
 
 		statusElement.textContent = "Escribe el nombre del Pokémon.";
 	} catch (error) {
