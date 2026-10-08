@@ -9,7 +9,7 @@ const guessForm = document.querySelector("#guess-form");
 const guessInput = document.querySelector("#guess-input");
 const attemptsElement = document.querySelector("#attempts");
 
-const pixelLevels = [4, 6, 8, 16, 32, 64];
+const pixelLevels = [8, 12, 16, 32, 64, 128];
 const maxAttempts = pixelLevels.length;
 
 let attemptsUsed = 0;
