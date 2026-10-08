@@ -1,21 +1,27 @@
 /* Paleta y temas */
 :root {
 	color-scheme: light;
-	--page: #f5f3ed;
-	--surface: #fffefa;
-	--stage: #eeefe8;
+
+	--page: #f6f7f9;
+	--surface: #ffffff;
+	--stage: #f0f2f5;
 	--input: #ffffff;
-	--ink: #233831;
-	--muted: #66736c;
-	--line: #dde2d8;
-	--accent: #ecd064;
-	--accent-ink: #302b16;
-	--accent-soft: #f7f0d6;
-	--green: #557a66;
-	--pattern: #829982;
+
+	--ink: #342c31;
+	--muted: #605860;
+	--line: #e4dfe3;
+
+	--accent: #b83b4b;
+	--accent-ink: #ffffff;
+	--accent-soft: #f8ecee;
+
+	--green: #b33f50;
+	--pattern: #a66c78;
+
 	--shadow:
-		0 24px 70px -30px rgb(41 62 44 / 24%), 0 3px 12px rgb(41 62 44 / 3%);
-	--focus: #667c28;
+		0 24px 70px -30px rgb(64 30 42 / 18%), 0 3px 12px rgb(64 30 42 / 3%);
+
+	--focus: #b33f50;
 
 	font-family:
 		Inter,
@@ -33,20 +39,26 @@
 
 :root[data-theme="dark"] {
 	color-scheme: dark;
+
 	--page: #101b22;
 	--surface: #18272e;
 	--stage: #112027;
 	--input: #132129;
-	--ink: #eef2e9;
-	--muted: #a1b3ae;
-	--line: #2c4045;
-	--accent: #efd275;
-	--accent-ink: #292713;
-	--accent-soft: #313a2b;
-	--green: #a8c4a4;
-	--pattern: #7daba1;
+
+	--ink: #f4edf0;
+	--muted: #b4a5af;
+	--line: #3b3a46;
+
+	--accent: #e493a1;
+	--accent-ink: #311b23;
+	--accent-soft: #3c2730;
+
+	--green: #ee9aa8;
+	--pattern: #b57c86;
+
 	--shadow: 0 24px 70px -22px rgb(0 0 0 / 40%), 0 2px 12px rgb(0 0 0 / 12%);
-	--focus: #efd275;
+
+	--focus: #efa3af;
 }
 
 /* Base */
@@ -104,15 +116,16 @@ body::before {
 	inset: 0;
 	z-index: -2;
 	pointer-events: none;
+
 	background:
 		radial-gradient(
 			ellipse at 88% 10%,
-			rgb(229 188 69 / 9%),
+			rgb(190 66 85 / 5%),
 			transparent 46%
 		),
 		radial-gradient(
 			ellipse at 3% 77%,
-			rgb(92 141 113 / 9%),
+			rgb(177 103 131 / 4%),
 			transparent 45%
 		);
 }
@@ -983,5 +996,199 @@ h1 > span,
 	.ui-button:not(:disabled):hover,
 	.ui-button:not(:disabled):active {
 		transform: none;
+	}
+}
+
+/* Centrado vertical en escritorio */
+@media (min-width: 801px) {
+	body {
+		min-height: 100svh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.site-header {
+		width: 100%;
+		padding: 20px 32px;
+		flex-shrink: 0;
+	}
+
+	.quest-layout {
+		width: 100%;
+		flex: 1;
+		padding: 16px 32px;
+		align-content: center;
+		align-items: center;
+	}
+
+	.site-footer {
+		width: 100%;
+		padding: 14px 32px;
+		flex-shrink: 0;
+	}
+
+	.background-orbit {
+		height: min(620px, 100%);
+	}
+
+	.image-stage {
+		height: clamp(220px, 34svh, 326px);
+	}
+
+	#pokemon-canvas {
+		width: min(256px, calc(34svh - 44px));
+		height: auto;
+		aspect-ratio: 1;
+	}
+}
+
+/* Ajustes para pantallas de escritorio con poca altura */
+@media (min-width: 801px) and (max-height: 740px) {
+	.site-header {
+		padding-top: 16px;
+		padding-bottom: 16px;
+	}
+
+	.quest-layout {
+		padding-top: 8px;
+		padding-bottom: 8px;
+	}
+
+	.site-footer {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	.game-card {
+		padding: 18px;
+	}
+
+	.card-heading {
+		margin-bottom: 14px;
+	}
+
+	.guess-form {
+		margin-top: 16px;
+	}
+
+	.status-panel {
+		min-height: 32px;
+		margin-top: 12px;
+	}
+
+	.card-footnote {
+		margin-top: 6px;
+		padding-top: 10px;
+	}
+}
+
+/* Escala general del texto */
+:root {
+	--text-scale: 1.15;
+}
+
+body {
+	font-size: calc(16px * var(--text-scale));
+}
+
+.brand {
+	font-size: calc(23px * var(--text-scale));
+}
+
+.header-caption,
+.eyebrow,
+.attempts-badge,
+.card-footnote,
+.site-footer {
+	font-size: calc(10px * var(--text-scale));
+}
+
+h1 {
+	font-size: calc(clamp(38px, 4.4vw, 56px) * var(--text-scale));
+}
+
+.intro-description {
+	font-size: calc(15px * var(--text-scale));
+}
+
+.game-facts,
+.guess-form label,
+.submit-button,
+#status {
+	font-size: calc(12px * var(--text-scale));
+}
+
+.intro-note {
+	font-size: calc(11px * var(--text-scale));
+}
+
+.card-label,
+.status-icon,
+.site-footer > span:first-child {
+	font-size: calc(9px * var(--text-scale));
+}
+
+.guess-controls input {
+	font-size: calc(13px * var(--text-scale));
+}
+
+.stage-caption {
+	font-size: calc(8px * var(--text-scale));
+}
+
+/* Mantener las proporciones en pantallas pequeñas */
+@media (max-width: 1000px) {
+	h1 {
+		font-size: calc(45px * var(--text-scale));
+	}
+}
+
+@media (max-width: 800px) {
+	h1 {
+		font-size: calc(44px * var(--text-scale));
+	}
+
+	.intro-description {
+		font-size: calc(14px * var(--text-scale));
+	}
+
+	.game-facts {
+		font-size: calc(10px * var(--text-scale));
+	}
+}
+
+@media (max-width: 480px) {
+	.brand {
+		font-size: calc(21px * var(--text-scale));
+	}
+
+	h1 {
+		font-size: calc(39px * var(--text-scale));
+	}
+
+	.eyebrow,
+	.card-label {
+		font-size: calc(8px * var(--text-scale));
+	}
+
+	.intro-description,
+	.submit-button {
+		font-size: calc(13px * var(--text-scale));
+	}
+
+	.attempts-badge,
+	.card-footnote,
+	.site-footer {
+		font-size: calc(9px * var(--text-scale));
+	}
+
+	.guess-controls input {
+		font-size: calc(16px * var(--text-scale));
+	}
+}
+
+@media (max-width: 350px) {
+	h1 {
+		font-size: calc(34px * var(--text-scale));
 	}
 }

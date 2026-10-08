@@ -34,7 +34,7 @@ function drawPokemon(resolution) {
 function finishGame(message) {
 	gameFinished = true;
 
-	drawPokemon(256);
+	drawPokemon(512);
 	statusElement.textContent = message;
 
 	guessInput.disabled = true;
@@ -75,7 +75,11 @@ function handleGuess(event) {
 	}
 
 	if (attemptsUsed === maxAttempts) {
-		finishGame(`Sin intentos. Era ${currentPokemon.species.name}.`);
+		const pokemonName = currentPokemon.species.name;
+		const displayName =
+			pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
+
+		finishGame(`Sin intentos. Era ${displayName}.`);
 		return;
 	}
 

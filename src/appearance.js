@@ -15,7 +15,7 @@ function applyTheme(theme) {
 
 	document.querySelector('meta[name="theme-color"]').content = isDark
 		? "#101b22"
-		: "#f5f3ed";
+		: "#f6f7f9";
 }
 
 applyTheme(root.dataset.theme);
