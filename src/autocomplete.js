@@ -41,7 +41,8 @@ export function setupAutocomplete(pokemonNames) {
 			return;
 		}
 
-		input.value = name;
+		input.value =
+			name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 		input.focus({ preventScroll: true });
 		closeSuggestions();
 	}

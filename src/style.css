@@ -1351,3 +1351,29 @@ h1 {
 		font-size: calc(20px * var(--text-scale, 1));
 	}
 }
+
+.new-game-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+
+	width: 100%;
+	min-height: 44px;
+	margin-top: 14px;
+	padding: 0 16px;
+
+	color: var(--green);
+	font-size: calc(13px * var(--text-scale, 1));
+	font-weight: 650;
+}
+
+.new-game-button svg {
+	width: 18px;
+	height: 18px;
+}
+
+.new-game-button:disabled {
+	opacity: 0.6;
+	cursor: wait;
+}

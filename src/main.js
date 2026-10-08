@@ -1,4 +1,3 @@
-import "./style.css";
 import { fetchJson } from "./api.js";
 import { setupAutocomplete } from "./autocomplete.js";
 
@@ -9,9 +8,12 @@ const context = pokemonCanvas.getContext("2d");
 const guessForm = document.querySelector("#guess-form");
 const guessInput = document.querySelector("#guess-input");
 const attemptsElement = document.querySelector("#attempts");
+const newGameButton = document.querySelector("#new-game-button");
 
 const pixelLevels = [8, 12, 16, 32, 64, 128];
 const maxAttempts = pixelLevels.length;
+let speciesList = [];
+let isLoading = false;
 
 let attemptsUsed = 0;
 let gameFinished = false;
@@ -42,6 +44,7 @@ function finishGame(message, result) {
 
 	guessInput.disabled = true;
 	guessForm.querySelector("button").disabled = true;
+	newGameButton.hidden = false;
 }
 
 function handleGuess(event) {
@@ -109,18 +112,47 @@ function updateAttempts() {
 	);
 }
 
-async function loadPokemon() {
+function startNewGame(focusInput = false) {
+	if (isLoading) {
+		return;
+	}
+
+	attemptsUsed = 0;
+	gameFinished = false;
+	currentPokemon = null;
+
+	guessInput.value = "";
+	pokemonCanvas.hidden = true;
+
+	delete statusElement.dataset.result;
+
+	updateAttempts();
+	loadPokemon(focusInput);
+}
+
+async function loadPokemon(focusInput = false) {
+	isLoading = true;
+
+	newGameButton.disabled = true;
+	guessInput.disabled = true;
+	guessForm.querySelector("button").disabled = true;
+
 	statusElement.textContent = "Cargando Pokémon…";
 
 	try {
-		const listData = await fetchJson(
-			"https://pokeapi.co/api/v2/pokemon-species?limit=100000",
-		);
-		pokemonNames = listData.results.map((pokemon) => pokemon.name);
-		setupAutocomplete(pokemonNames);
+		if (speciesList.length === 0) {
+			const listData = await fetchJson(
+				"https://pokeapi.co/api/v2/pokemon-species?limit=100000",
+			);
 
-		const randomIndex = Math.floor(Math.random() * listData.results.length);
-		const selectedSpecies = listData.results[randomIndex];
+			speciesList = listData.results;
+			pokemonNames = speciesList.map((pokemon) => pokemon.name);
+
+			setupAutocomplete(pokemonNames);
+		}
+
+		const randomIndex = Math.floor(Math.random() * speciesList.length);
+		const selectedSpecies = speciesList[randomIndex];
 
 		const speciesData = await fetchJson(selectedSpecies.url);
 
@@ -136,19 +168,33 @@ async function loadPokemon() {
 
 		await pokemonImage.decode();
 
-		drawPokemon(pixelLevels[attemptsUsed]);
-
+		drawPokemon(pixelLevels[0]);
 		pokemonCanvas.hidden = false;
 
 		currentPokemon = pokemon;
-		console.log("Especie elegida:", currentPokemon.species.name);
+
+		guessInput.disabled = false;
+		guessForm.querySelector("button").disabled = false;
+		newGameButton.hidden = true;
 
 		statusElement.textContent = "Escribe el nombre del Pokémon.";
+
+		if (focusInput) {
+			guessInput.focus({ preventScroll: true });
+		}
 	} catch (error) {
 		console.error(error);
+
 		statusElement.textContent = "No se pudo preparar la partida.";
+		newGameButton.hidden = false;
+	} finally {
+		isLoading = false;
+		newGameButton.disabled = false;
 	}
 }
 
-updateAttempts();
-loadPokemon();
+newGameButton.addEventListener("click", () => {
+	startNewGame(true);
+});
+
+startNewGame();

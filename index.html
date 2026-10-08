@@ -8,7 +8,7 @@
 			name="description"
 			content="Descubre el Pokémon que se esconde entre los píxeles. Seis intentos, todas las generaciones y un nuevo reto en cada partida."
 		/>
-		<title>PixelQuest — Descubre entre píxeles</title>
+		<title>PokePixel — Descubre entre píxeles</title>
 
 		<script>
 			(() => {
@@ -26,19 +26,20 @@
 							: "light";
 			})();
 		</script>
+		<link rel="stylesheet" href="/src/style.css" />
 	</head>
 
 	<body>
 		<div class="background-orbit" aria-hidden="true"></div>
 
 		<header class="site-header">
-			<div class="brand" aria-label="PixelQuest">
+			<div class="brand" aria-label="PokePixel">
 				<span class="brand-mark" aria-hidden="true">
 					<span></span>
 				</span>
 
 				<span>
-					Pixel<span class="brand-accent">Quest</span
+					Poke<span class="brand-accent">Pixel</span
 					><span class="brand-dot">.</span>
 				</span>
 			</div>
@@ -139,7 +140,7 @@
 				</div>
 			</section>
 
-			<section class="game-card" aria-label="Partida de PixelQuest">
+			<section class="game-card" aria-label="Partida de PokePixel">
 				<div class="card-heading">
 					<span class="card-label">
 						<span class="live-dot" aria-hidden="true"></span>
@@ -258,6 +259,28 @@
 						Cargando Pokémon…
 					</p>
 				</div>
+
+				<button
+					id="new-game-button"
+					class="ui-button new-game-button"
+					type="button"
+					hidden
+				>
+					Nueva partida
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.8"
+						aria-hidden="true"
+					>
+						<path
+							d="M20 7v5h-5M4 17v-5h5M6.1 7a7 7 0 0 1 11.5-1L20 9M4 15l2.4 3A7 7 0 0 0 17.9 17"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+					</svg>
+				</button>
 
 				<p class="card-footnote">
 					Los nombres que no existen no consumen intentos.
