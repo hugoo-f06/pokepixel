@@ -1246,3 +1246,108 @@ h1 {
 		transition: none;
 	}
 }
+
+/* Colores de resultado */
+:root {
+	--win-color: #08763f;
+	--win-glow: rgb(22 163 74 / 22%);
+
+	--lose-color: #c52e49;
+	--lose-glow: rgb(244 63 94 / 22%);
+}
+
+:root[data-theme="dark"] {
+	--win-color: #6df4ac;
+	--win-glow: rgb(74 222 128 / 35%);
+
+	--lose-color: #ff728c;
+	--lose-glow: rgb(255 90 125 / 35%);
+}
+
+/* Número de intentos */
+.attempts-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+}
+
+.attempts-number {
+	font-size: calc(20px * var(--text-scale, 1));
+	font-weight: 800;
+	line-height: 1;
+	color: var(--green);
+}
+
+/* Mensaje final */
+#status[data-result] {
+	font-size: calc(15px * var(--text-scale, 1));
+	font-weight: 750;
+	line-height: 1.55;
+	animation: result-appear 300ms ease-out;
+}
+
+#status[data-result="win"] {
+	color: var(--win-color);
+	text-shadow:
+		0 0 8px var(--win-glow),
+		0 0 20px var(--win-glow);
+}
+
+#status[data-result="lose"] {
+	color: var(--lose-color);
+	text-shadow:
+		0 0 8px var(--lose-glow),
+		0 0 20px var(--lose-glow);
+}
+
+@keyframes result-appear {
+	from {
+		opacity: 0;
+		transform: translateY(3px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (max-width: 480px) {
+	.attempts-number {
+		font-size: calc(18px * var(--text-scale, 1));
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#status[data-result] {
+		animation: none;
+	}
+}
+
+/* Icono centrado verticalmente con el mensaje */
+.status-panel {
+	align-items: center;
+}
+
+.status-icon {
+	margin-top: 0;
+}
+
+/* Contador ligeramente más grande */
+.attempts-badge {
+	font-size: calc(11px * var(--text-scale, 1));
+}
+
+.attempts-number {
+	font-size: calc(22px * var(--text-scale, 1));
+}
+
+@media (max-width: 480px) {
+	.attempts-badge {
+		font-size: calc(10px * var(--text-scale, 1));
+	}
+
+	.attempts-number {
+		font-size: calc(20px * var(--text-scale, 1));
+	}
+}

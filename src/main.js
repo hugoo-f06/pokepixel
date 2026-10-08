@@ -32,11 +32,13 @@ function drawPokemon(resolution) {
 	);
 }
 
-function finishGame(message) {
+function finishGame(message, result) {
 	gameFinished = true;
 
-	drawPokemon(512);
+	drawPokemon(256);
+
 	statusElement.textContent = message;
+	statusElement.dataset.result = result;
 
 	guessInput.disabled = true;
 	guessForm.querySelector("button").disabled = true;
@@ -74,7 +76,7 @@ function handleGuess(event) {
 		const pokemonName = currentPokemon.species.name;
 		const displayName =
 			pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
-		finishGame(`¡Has acertado! Era ${displayName}.`);
+		finishGame(`¡Has acertado! Era ${displayName}.`, "win");
 		return;
 	}
 
@@ -83,7 +85,7 @@ function handleGuess(event) {
 		const displayName =
 			pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
 
-		finishGame(`Sin intentos. Era ${displayName}.`);
+		finishGame(`Sin intentos. Era ${displayName}.`, "lose");
 		return;
 	}
 
@@ -97,7 +99,14 @@ guessForm.addEventListener("submit", handleGuess);
 function updateAttempts() {
 	const remainingAttempts = maxAttempts - attemptsUsed;
 
-	attemptsElement.textContent = `Intentos restantes: ${remainingAttempts}`;
+	const count = document.createElement("strong");
+	count.className = "attempts-number";
+	count.textContent = String(remainingAttempts);
+
+	attemptsElement.replaceChildren(
+		document.createTextNode("Intentos restantes: "),
+		count,
+	);
 }
 
 async function loadPokemon() {
