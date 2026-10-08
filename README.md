@@ -1,16 +1,15 @@
 # 🎮 PixelQuest
 
-PixelQuest is a daily Pokémon guessing game inspired by games like Wordle.
+PixelQuest is a Pokémon guessing game inspired by Wordle.
 
-Each day, a Pokémon is selected and shown as a heavily pixelated image. The player has a limited number of attempts to guess which Pokémon it is.
-
-With every incorrect guess, the image becomes progressively clearer.
+Each game selects a random Pokémon species from all generations.
+Its image starts heavily pixelated and becomes clearer after each incorrect guess. The player has six attempts to identify it.
 
 ## 🎯 How it works
 
-1. A highly pixelated image of the daily Pokémon is displayed.
+1. A highly pixelated image of the random Pokémon is displayed.
 2. The player enters the name of a Pokémon.
-3. If the guess is incorrect, an attempt is consumed and the image becomes less pixelated.
+3. If the guess is incorrect, an attempt is consumed and the image becomes less pixelated. Inexistent Pokémon names do not consume attempts.
 4. The player continues until:
    - ✅ The Pokémon is guessed correctly.
    - ❌ All attempts are used.
@@ -24,21 +23,23 @@ The first version will focus only on the core gameplay. Features such as user ac
 
 ### Initial goals
 
-- [ ] Display a Pokémon
-- [ ] Pixelate its image
-- [ ] Allow the player to submit guesses
-- [ ] Validate Pokémon names
-- [ ] Reduce pixelation after incorrect guesses
-- [ ] Limit the number of attempts
-- [ ] Handle win and loss states
-- [ ] Reveal the Pokémon when the game ends
-- [ ] Select the same Pokémon for everyone each day
+- [x] Display a Pokémon
+- [x] Pixelate its image
+- [x] Allow the player to submit guesses
+- [x] Validate Pokémon names
+- [x] Reduce pixelation after incorrect guesses
+- [x] Limit the number of attempts
+- [x] Handle win and loss states
+- [x] Reveal the Pokémon when the game ends
+- [x] Select a random Pokémon species for each game
 
 ## 🛠️ Tech stack
 
-The technology stack has not been decided yet.
-
-Part of the goal of this project is to explore different web development technologies and understand the reasoning behind the choices made during development.
+- HTML and CSS for the interface.
+- JavaScript for game logic and browser interaction.
+- Canvas for image pixelation.
+- PokéAPI for Pokémon species and images.
+- Vite for development and production builds.
 
 ## 📚 Learning goals
 
