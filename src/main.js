@@ -1,4 +1,5 @@
 import "./style.css";
+import { fetchJson } from "./api.js";
 
 const statusElement = document.querySelector("#status");
 const pokemonImage = document.querySelector("#pokemon-image");
@@ -95,45 +96,21 @@ async function loadPokemon() {
 	statusElement.textContent = "Cargando Pokémon…";
 
 	try {
-		const listResponse = await fetch(
+		const listData = await fetchJson(
 			"https://pokeapi.co/api/v2/pokemon-species?limit=100000",
 		);
-
-		if (!listResponse.ok) {
-			throw new Error(
-				`PokéAPI respondió con el estado ${listResponse.status}`,
-			);
-		}
-
-		const listData = await listResponse.json();
 		pokemonNames = listData.results.map((pokemon) => pokemon.name);
 
 		const randomIndex = Math.floor(Math.random() * listData.results.length);
 		const selectedSpecies = listData.results[randomIndex];
 
-		const speciesResponse = await fetch(selectedSpecies.url);
-
-		if (!speciesResponse.ok) {
-			throw new Error(
-				`PokéAPI respondió con el estado ${speciesResponse.status}`,
-			);
-		}
-
-		const speciesData = await speciesResponse.json();
+		const speciesData = await fetchJson(selectedSpecies.url);
 
 		const defaultVariety = speciesData.varieties.find(
 			(variety) => variety.is_default,
 		);
 
-		const response = await fetch(defaultVariety.pokemon.url);
-
-		if (!response.ok) {
-			throw new Error(
-				`PokéAPI respondió con el estado ${response.status}`,
-			);
-		}
-
-		const pokemon = await response.json();
+		const pokemon = await fetchJson(defaultVariety.pokemon.url);
 
 		pokemonImage.src =
 			pokemon.sprites.other["official-artwork"].front_default;
