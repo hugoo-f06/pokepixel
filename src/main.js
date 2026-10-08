@@ -1,5 +1,6 @@
 import "./style.css";
 import { fetchJson } from "./api.js";
+import { setupAutocomplete } from "./autocomplete.js";
 
 const statusElement = document.querySelector("#status");
 const pokemonImage = document.querySelector("#pokemon-image");
@@ -70,7 +71,10 @@ function handleGuess(event) {
 	updateAttempts();
 
 	if (guess === currentPokemon.species.name) {
-		finishGame(`¡Has acertado! Era ${currentPokemon.species.name}.`);
+		const pokemonName = currentPokemon.species.name;
+		const displayName =
+			pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
+		finishGame(`¡Has acertado! Era ${displayName}.`);
 		return;
 	}
 
@@ -104,6 +108,7 @@ async function loadPokemon() {
 			"https://pokeapi.co/api/v2/pokemon-species?limit=100000",
 		);
 		pokemonNames = listData.results.map((pokemon) => pokemon.name);
+		setupAutocomplete(pokemonNames);
 
 		const randomIndex = Math.floor(Math.random() * listData.results.length);
 		const selectedSpecies = listData.results[randomIndex];

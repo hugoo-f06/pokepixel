@@ -203,16 +203,30 @@
 					<label for="guess-input">¿Qué Pokémon crees que es?</label>
 
 					<div class="guess-controls">
-						<input
-							id="guess-input"
-							name="guess"
-							type="text"
-							placeholder="Escribe su nombre…"
-							autocomplete="off"
-							autocapitalize="none"
-							spellcheck="false"
-							required
-						/>
+						<div class="autocomplete">
+							<input
+								id="guess-input"
+								name="guess"
+								type="text"
+								placeholder="Escribe su nombre…"
+								autocomplete="off"
+								autocapitalize="none"
+								spellcheck="false"
+								role="combobox"
+								aria-autocomplete="list"
+								aria-controls="pokemon-suggestions"
+								aria-expanded="false"
+								required
+							/>
+
+							<ul
+								id="pokemon-suggestions"
+								class="pokemon-suggestions"
+								role="listbox"
+								aria-label="Pokémon sugeridos"
+								hidden
+							></ul>
+						</div>
 
 						<button class="ui-button submit-button" type="submit">
 							Adivinar

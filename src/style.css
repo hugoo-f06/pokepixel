@@ -1192,3 +1192,57 @@ h1 {
 		font-size: calc(34px * var(--text-scale));
 	}
 }
+
+/* Autocompletado */
+.autocomplete {
+	position: relative;
+	flex: 1;
+	min-width: 0;
+	width: 100%;
+}
+
+.pokemon-suggestions {
+	position: absolute;
+	top: calc(100% + 7px);
+	left: 0;
+	right: 0;
+	z-index: 10;
+
+	margin: 0;
+	padding: 6px;
+	max-height: 240px;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+
+	list-style: none;
+	background: var(--surface);
+	color: var(--ink);
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	box-shadow: var(--shadow);
+
+	font-size: calc(14px * var(--text-scale, 1));
+}
+
+.pokemon-suggestions li {
+	padding: 10px 12px;
+	border-radius: 7px;
+	cursor: pointer;
+	overflow-wrap: anywhere;
+
+	transition:
+		background-color 140ms ease,
+		color 140ms ease;
+}
+
+.pokemon-suggestions li:hover,
+.pokemon-suggestions li[aria-selected="true"] {
+	background: var(--accent-soft);
+	color: var(--green);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.pokemon-suggestions li {
+		transition: none;
+	}
+}
